@@ -14,6 +14,56 @@
                 <h1 class="admin-heading">Add User</h1>
             </div>
 
+
+            <?php
+            ini_set('display_errors', 0);
+
+
+            $user_fname = $_POST["fname"];
+            $user_lname = $_POST["lname"];
+            $user_name = $_POST["user"];
+            $user_password = $_POST["password"];
+            $user_role = $_POST["role"];
+
+            $conn = mysqli_connect("localhost","root","","kstore");
+
+            $query = "SELECT * from `user` WHERE `username` = '{$user_name}'";
+
+            $result = mysqli_query($conn,$query);
+
+            if(mysqli_num_rows($result)>0)
+            {
+                echo "user already exist";
+
+            }
+            else
+            {
+                $conn = mysqli_connect("localhost","root","","kstore");
+
+                $query1 = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `role`) VALUES ('{$user_fname}','{$user_lname}','{$user_name}','{$user_password}','{$user_role}')";
+
+                mysqli_query($conn,$query1);
+
+                header("location:http://localhost:82/kj/admin/users.php");
+
+            }
+
+
+        
+      
+
+
+
+
+
+
+            ?>
+
+
+
+
+
+
             <div class="col-md-offset-3 col-md-6">
                 <!-- Form Start -->
                 <form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST" autocomplete="off">
